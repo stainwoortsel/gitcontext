@@ -1,87 +1,271 @@
 {
   "name": "gitcontext-vscode",
   "displayName": "GitContext",
-  "description": "Visualize and manage AI context branches",
+  "description": "Visualize and manage AI context branches directly in VS Code",
   "version": "0.1.0",
+  "publisher": "yourname",
   "engines": {
     "vscode": "^1.80.0"
   },
   "categories": [
-    "Other",
-    "Visualization"
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "git",
+    "context",
+    "ai",
+    "memory",
+    "branch",
+    "version control"
   ],
   "activationEvents": [
-    "onView:gitcontextView",
+    "onView:gitcontext-contextView",
     "onCommand:gitcontext.init",
     "onCommand:gitcontext.createBranch",
     "onCommand:gitcontext.commit",
-    "onCommand:gitcontext.merge"
+    "onCommand:gitcontext.merge",
+    "onCommand:gitcontext.log",
+    "onCommand:gitcontext.status",
+    "onCommand:gitcontext.recordOta",
+    "workspaceContains:.gitcontext"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "views": {
       "explorer": [
         {
-          "id": "gitcontextView",
-          "name": "GitContext"
+          "id": "gitcontext-contextView",
+          "name": "GitContext",
+          "icon": "media/icons/branch.svg"
+        }
+      ],
+      "gitcontext": [
+        {
+          "id": "gitcontext-branches",
+          "name": "Branches"
+        },
+        {
+          "id": "gitcontext-commits",
+          "name": "Recent Commits"
+        },
+        {
+          "id": "gitcontext-ota",
+          "name": "OTA Logs"
         }
       ]
     },
+    "viewsWelcome": [
+      {
+        "view": "gitcontext-contextView",
+        "contents": "No GitContext repository found in workspace.\n[Initialize GitContext](command:gitcontext.init)"
+      }
+    ],
     "commands": [
       {
         "command": "gitcontext.init",
-        "title": "GitContext: Initialize"
+        "title": "GitContext: Initialize",
+        "icon": "$(database)"
       },
       {
         "command": "gitcontext.createBranch",
-        "title": "GitContext: Create Branch"
+        "title": "GitContext: Create Branch",
+        "icon": "$(git-branch)"
       },
       {
         "command": "gitcontext.commit",
-        "title": "GitContext: Commit"
+        "title": "GitContext: Commit",
+        "icon": "$(check)"
       },
       {
         "command": "gitcontext.merge",
-        "title": "GitContext: Merge Branch"
+        "title": "GitContext: Merge Branch",
+        "icon": "$(merge)"
+      },
+      {
+        "command": "gitcontext.log",
+        "title": "GitContext: Show Log",
+        "icon": "$(history)"
+      },
+      {
+        "command": "gitcontext.status",
+        "title": "GitContext: Show Status",
+        "icon": "$(info)"
+      },
+      {
+        "command": "gitcontext.recordOta",
+        "title": "GitContext: Record OTA Log",
+        "icon": "$(comment)"
+      },
+      {
+        "command": "gitcontext.switchBranch",
+        "title": "Switch to Branch",
+        "icon": "$(git-branch)"
+      },
+      {
+        "command": "gitcontext.viewCommit",
+        "title": "View Commit",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "gitcontext.viewOtaLog",
+        "title": "View OTA Log",
+        "icon": "$(output)"
+      },
+      {
+        "command": "gitcontext.deleteBranch",
+        "title": "Delete Branch",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "gitcontext.refresh",
+        "title": "Refresh",
+        "icon": "$(refresh)"
       }
     ],
     "menus": {
       "view/title": [
         {
+          "command": "gitcontext.refresh",
+          "when": "view == gitcontext-contextView",
+          "group": "navigation"
+        },
+        {
           "command": "gitcontext.init",
-          "when": "view == gitcontextView",
+          "when": "view == gitcontext-contextView",
           "group": "navigation"
         },
         {
           "command": "gitcontext.createBranch",
-          "when": "view == gitcontextView",
+          "when": "view == gitcontext-contextView",
           "group": "navigation"
         },
         {
           "command": "gitcontext.commit",
-          "when": "view == gitcontextView",
+          "when": "view == gitcontext-contextView",
           "group": "navigation"
         }
       ],
       "view/item/context": [
         {
+          "command": "gitcontext.switchBranch",
+          "when": "view == gitcontext-contextView && viewItem == 'branch'",
+          "group": "inline"
+        },
+        {
           "command": "gitcontext.merge",
-          "when": "view == gitcontextView && viewItem == 'branch'",
+          "when": "view == gitcontext-contextView && viewItem == 'branch'",
+          "group": "inline"
+        },
+        {
+          "command": "gitcontext.deleteBranch",
+          "when": "view == gitcontext-contextView && viewItem == 'branch' && viewItem != 'current-branch'",
+          "group": "inline"
+        },
+        {
+          "command": "gitcontext.viewCommit",
+          "when": "view == gitcontext-contextView && viewItem == 'commit'",
+          "group": "inline"
+        },
+        {
+          "command": "gitcontext.viewOtaLog",
+          "when": "view == gitcontext-contextView && viewItem == 'ota'",
           "group": "inline"
         }
+      ],
+      "commandPalette": [
+        {
+          "command": "gitcontext.init",
+          "when": "workspaceHasGitcontext"
+        },
+        {
+          "command": "gitcontext.createBranch",
+          "when": "workspaceHasGitcontext"
+        },
+        {
+          "command": "gitcontext.commit",
+          "when": "workspaceHasGitcontext"
+        },
+        {
+          "command": "gitcontext.merge",
+          "when": "workspaceHasGitcontext"
+        }
       ]
-    }
+    },
+    "configuration": {
+      "title": "GitContext",
+      "properties": {
+        "gitcontext.llmProvider": {
+          "type": "string",
+          "default": "openai",
+          "enum": ["openai", "anthropic", "ollama", "deepseek", "mock"],
+          "description": "LLM provider for context analysis"
+        },
+        "gitcontext.llmModel": {
+          "type": "string",
+          "default": "",
+          "description": "LLM model name (leave empty for default)"
+        },
+        "gitcontext.autoRecordOta": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically prompt to record OTA logs after edits"
+        },
+        "gitcontext.pythonPath": {
+          "type": "string",
+          "default": "python3",
+          "description": "Path to Python executable"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "gitcontext.commit",
+        "key": "ctrl+alt+c",
+        "mac": "cmd+alt+c",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "gitcontext.recordOta",
+        "key": "ctrl+alt+o",
+        "mac": "cmd+alt+o",
+        "when": "editorTextFocus"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ..",
-    "watch": "tsc -watch -p .."
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package",
+    "publish": "vsce publish"
   },
   "devDependencies": {
     "@types/vscode": "^1.80.0",
-    "typescript": "^5.0.0"
+    "@types/node": "^18.x",
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@typescript-eslint/parser": "^6.4.0",
+    "eslint": "^8.47.0",
+    "typescript": "^5.1.6",
+    "@vscode/test-electron": "^2.3.4",
+    "vsce": "^2.15.0"
   },
   "dependencies": {
-    "js-yaml": "^4.1.0"
+    "child-process-promise": "^2.2.1",
+    "fs-extra": "^11.1.1",
+    "yaml": "^2.3.2",
+    "marked": "^9.0.0",
+    "date-fns": "^2.30.0"
+  },
+  "icon": "media/icons/gitcontext.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourname/gitcontext-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/yourname/gitcontext-vscode/issues"
   }
 }
