@@ -1,0 +1,87 @@
+{
+  "name": "gitcontext-vscode",
+  "displayName": "GitContext",
+  "description": "Visualize and manage AI context branches",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other",
+    "Visualization"
+  ],
+  "activationEvents": [
+    "onView:gitcontextView",
+    "onCommand:gitcontext.init",
+    "onCommand:gitcontext.createBranch",
+    "onCommand:gitcontext.commit",
+    "onCommand:gitcontext.merge"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "id": "gitcontextView",
+          "name": "GitContext"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "gitcontext.init",
+        "title": "GitContext: Initialize"
+      },
+      {
+        "command": "gitcontext.createBranch",
+        "title": "GitContext: Create Branch"
+      },
+      {
+        "command": "gitcontext.commit",
+        "title": "GitContext: Commit"
+      },
+      {
+        "command": "gitcontext.merge",
+        "title": "GitContext: Merge Branch"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "gitcontext.init",
+          "when": "view == gitcontextView",
+          "group": "navigation"
+        },
+        {
+          "command": "gitcontext.createBranch",
+          "when": "view == gitcontextView",
+          "group": "navigation"
+        },
+        {
+          "command": "gitcontext.commit",
+          "when": "view == gitcontextView",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "gitcontext.merge",
+          "when": "view == gitcontextView && viewItem == 'branch'",
+          "group": "inline"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ..",
+    "watch": "tsc -watch -p .."
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

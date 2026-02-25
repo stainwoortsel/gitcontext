@@ -1,0 +1,30 @@
+# GitContext Integration Rules
+
+# Always maintain context in .gitcontext/
+- When starting a new feature, create a context branch:
+  `git-context branch feature/<name>`
+
+- Before making changes, check current context:
+  `git-context status`
+
+- After completing a task, commit with OTA logs:
+  `git-context commit "description" --ota-file .gitcontext/temp/last_ota.json`
+
+- When exploring alternatives, document rejected approaches in commit alternatives
+
+- Before merging, analyze branch and suggest squash strategy
+
+# OTA Logging Format
+When working, log your thought process:
+{
+  "thought": "what I'm considering",
+  "action": "what I'm doing",
+  "result": "what happened",
+  "files_affected": ["file1.py", "file2.js"]
+}
+
+
+# Use GitContext for memory
+- Before coding: git-context status
+- After changes: git-context commit "summary"
+- For experiments: git-context branch feature/name

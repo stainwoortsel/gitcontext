@@ -1,0 +1,12 @@
+# IDE
+.idea
+.idea/*
+.idea/**/*
+
+# Egg
+*.egg-info
+
+# Temporary
+tmp
+tmp/*
+tmp/**/*
