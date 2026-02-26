@@ -10,3 +10,9 @@
 tmp
 tmp/*
 tmp/**/*
+
+# Pycache
+__pycache__/
+__pycache__/*
+
+

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gitcontext"
-version = "0.1.0"
+version = "0.1.2"
 description = "Git for AI context management - Track and version AI thoughts, decisions, and context"
 readme = "README.md"
 authors = [
@@ -40,10 +40,10 @@ dependencies = [
 ]
 
 [project.urls]
-homepage = "https://github.com/yourname/gitcontext"
+homepage = "https://github.com/stainwoortsel/gitcontext"
 documentation = "https://gitcontext.readthedocs.io"
-repository = "https://github.com/yourname/gitcontext"
-changelog = "https://github.com/yourname/gitcontext/blob/main/CHANGELOG.md"
+repository = "https://github.com/stainwoortsel/gitcontext"
+changelog = "https://github.com/stainwoortsel/gitcontext/blob/main/CHANGELOG.md"
 
 [project.scripts]
 git-context = "gitcontext.cli.main:cli"

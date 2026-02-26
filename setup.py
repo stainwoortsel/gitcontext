@@ -8,7 +8,7 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
 
 setup(
     name="gitcontext",
-    version="0.1.0",
+    version="0.1.3",
     author="Vadim Egorov aka Stainwoortsel",
     author_email="stainwoortsel@gmail.com",
     description="Git for AI context management",
@@ -31,7 +31,7 @@ setup(
     install_requires=requirements,
     entry_points={
         "console_scripts": [
-            "git-context=gitcontext.cli:main",
+            "git-context=src.gitcontext.cli:main",
         ],
     },
     include_package_data=True,
