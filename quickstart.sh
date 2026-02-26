@@ -1,4 +1,4 @@
-# Initialize in your repo
+# Initialize in your project
 cd your-project
 git-context init
 
@@ -6,17 +6,14 @@ git-context init
 git-context branch feature/auth
 
 # Record your thought process
-git-context ota \
-  --thought "Need to implement JWT auth" \
-  --action "Research JWT libraries" \
-  --result "Found python-jose, will use it"
+git-context ota --interactive
 
 # Commit with analysis
-git-context commit "Added JWT authentication" --ota-file .gitcontext/temp/ota_*.json
+git-context commit "Added JWT authentication" --interactive
+
+# View history
+git-context log
 
 # Switch back and merge
 git-context checkout main
 git-context merge feature/auth
-
-# View history
-git-context log

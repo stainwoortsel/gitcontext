@@ -1,0 +1,13 @@
+llm:
+  provider: openai
+  model: gpt-4-turbo-preview
+  temperature: 0.3
+
+storage:
+  context_dir: .gitcontext
+  max_history: 1000
+  compress_archive: true
+
+git:
+  auto_commit: false
+  auto_push: false

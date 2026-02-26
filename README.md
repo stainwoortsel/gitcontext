@@ -1,21 +1,39 @@
-# GitContext for VS Code
+# GitContext 🧠📦
 
-Visualize and manage AI context branches directly in VS Code.
+[![Tests](https://github.com/yourname/gitcontext/actions/workflows/tests.yml/badge.svg)](https://github.com/yourname/gitcontext/actions/workflows/tests.yml)
+[![PyPI version](https://badge.fury.io/py/gitcontext.svg)](https://badge.fury.io/py/gitcontext)
+[![Python versions](https://img.shields.io/pypi/pyversions/gitcontext.svg)](https://pypi.org/project/gitcontext/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+**Git for AI context management** - Track, version, and manage AI thoughts, decisions, and context alongside your code.
 
 ## Features
 
-- 🌿 **Branch visualization** - See all your context branches in a tree view
-- 📝 **Commit browser** - Browse through commit history
-- 🤖 **OTA log viewer** - View AI thought process logs
-- 🔄 **Branch operations** - Create, switch, merge, delete branches
-- ⚡ **Quick commands** - Keyboard shortcuts for common operations
-- 🎨 **Rich webviews** - Detailed views for commits and OTA logs
+- 🌿 **Branch contexts** - Different AI contexts for different features
+- 📝 **Commit thoughts** - Save OTA (Overthinking Analysis) logs
+- 🔀 **Smart merging** - Squash detailed logs into summaries
+- 🤖 **Multiple LLM providers** - OpenAI, Anthropic, Ollama, DeepSeek
+- 🎯 **Decision tracking** - Record key decisions and rejected alternatives
+- 🔗 **Git integration** - Works alongside your existing Git workflow
+- 🖥️ **Beautiful CLI** - Rich terminal output with colors and tables
+- 🐍 **Python API** - Use programmatically in your scripts
 
 ## Installation
 
-1. Install the GitContext Python package:
 ```bash
+# From PyPI
 pip install gitcontext
+
+# With specific LLM support
+pip install "gitcontext[openai]"      # OpenAI support
+pip install "gitcontext[anthropic]"   # Anthropic support
+pip install "gitcontext[ollama]"      # Ollama support
+pip install "gitcontext[all]"         # All providers
+
+# From source
+git clone https://github.com/yourname/gitcontext
+cd gitcontext
+pip install -e ".[dev]"
 ```
 
 ## Basic usage
